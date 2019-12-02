@@ -69,16 +69,29 @@
 //! each module separately, then add them all up at the end.)
 //!
 
-// #[macro_use]
-// extern crate log;
-
 use std::fmt::Debug;
+
+pub use anyhow::{Context, Result};
+use shrinkwraprs::Shrinkwrap;
 
 pub mod initial;
 pub use crate::initial::Day01Initial;
 
-type Day01SolutionPart1 = i64;
-type Day01SolutionPart2 = i64;
+type Day01SolutionPart1 = usize;
+type Day01SolutionPart2 = usize;
+
+#[derive(Debug, Shrinkwrap, PartialEq)]
+pub struct Day01Entry(usize);
+
+impl Day01Entry {
+    pub fn weight(&self) -> usize {
+        weight(self.0)
+    }
+}
+
+pub fn weight(module: usize) -> usize {
+    (module / 3).saturating_sub(2)
+}
 
 pub trait AoC<'a>: Debug {
     type SolutionPart1;
@@ -101,9 +114,10 @@ pub trait AoC<'a>: Debug {
     }
 }
 
-fn parse_input<'a>(input: &'a str) -> impl Iterator<Item = i64> + 'a {
-    unimplemented!();
-    vec![].into_iter()
+pub fn parse_input<'a>(input: &'a str) -> impl Iterator<Item = Day01Entry> + 'a {
+    input
+        .lines()
+        .map(|line| Day01Entry(line.trim().parse().expect("Invalid entry")))
 }
 
 pub static PUZZLE_INPUT: &str = include_str!("../input");
@@ -119,10 +133,7 @@ pub mod benchmark {
     >;
 
     pub fn to_benchmark<'a>() -> BenchmarkVector<'a> {
-        unimplemented!()
-        // vec![
-        //     Box::new(Day01Initial::new(PUZZLE_INPUT)),
-        // ]
+        vec![Box::new(Day01Initial::new(PUZZLE_INPUT))]
     }
 }
 
@@ -131,7 +142,7 @@ mod tests {
     use env_logger;
     use std::env;
 
-    use crate::parse_input;
+    use super::*;
 
     pub fn init_logger() {
         env::var("RUST_LOG")
@@ -141,14 +152,57 @@ mod tests {
                 println!("Setting to: {}", rust_log);
                 env::set_var("RUST_LOG", &rust_log);
                 Ok(rust_log)
-            }).unwrap();
+            })
+            .unwrap();
         let _ = env_logger::try_init();
     }
 
     #[test]
+    fn modules_weight() {
+        init_logger();
+
+        let to_check = Day01Entry(12).weight();
+        let expected = 2;
+        assert_eq!(to_check, expected);
+
+        let to_check = Day01Entry(14).weight();
+        let expected = 2;
+        assert_eq!(to_check, expected);
+
+        let to_check = Day01Entry(1969).weight();
+        let expected = 654;
+        assert_eq!(to_check, expected);
+
+        let to_check = Day01Entry(100756).weight();
+        let expected = 33583;
+        assert_eq!(to_check, expected);
+    }
+
+    #[test]
     fn parse() {
-        unimplemented!();
-        let parsed: Vec<_> = parse_input("").collect();
-        assert_eq!(parsed, vec![]);
+        init_logger();
+
+        let parsed: Vec<Day01Entry> = parse_input(PUZZLE_INPUT).collect();
+        assert_eq!(parsed.len(), 100);
+        assert_eq!(
+            &parsed[0..5],
+            &[
+                Day01Entry(130541),
+                Day01Entry(69856),
+                Day01Entry(104618),
+                Day01Entry(149406),
+                Day01Entry(64500)
+            ]
+        );
+        assert_eq!(
+            &parsed[95..100],
+            &[
+                Day01Entry(89177),
+                Day01Entry(82419),
+                Day01Entry(98712),
+                Day01Entry(148947),
+                Day01Entry(50931)
+            ]
+        );
     }
 }
