@@ -1,4 +1,4 @@
-use crate::{parse_input, AoC, DayXXSolutionPart1, DayXXSolutionPart2};
+use crate::*;
 
 #[derive(Debug)]
 pub struct DayXXInitial<'a> {

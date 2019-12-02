@@ -5,7 +5,6 @@
 //! * [Part 1](../../../dayXX/target/criterion/dayXX_part1/report/index.html)
 //! * [Part 2](../../../dayXX/target/criterion/dayXX_part2/report/index.html)
 //!
-//!
 //! ## Part One
 //!
 //!
@@ -15,13 +14,16 @@
 //!
 //!
 
-// #[macro_use]
-// extern crate log;
-
 use std::fmt::Debug;
+
+pub use anyhow::{Context, Result};
+use shrinkwraprs::Shrinkwrap;
 
 pub mod initial;
 pub use crate::initial::DayXXInitial;
+
+#[derive(Debug, Shrinkwrap, PartialEq)]
+pub struct DayXXEntry(usize);
 
 type DayXXSolutionPart1 = i64;
 type DayXXSolutionPart2 = i64;
@@ -47,9 +49,10 @@ pub trait AoC<'a>: Debug {
     }
 }
 
-fn parse_input<'a>(input: &'a str) -> impl Iterator<Item = i64> + 'a {
-    unimplemented!();
-    vec![].into_iter()
+pub fn parse_input<'a>(input: &'a str) -> impl Iterator<Item = DayXXEntry> + 'a {
+    input
+        .lines()
+        .map(|line| DayXXEntry(line.trim().parse().expect("Invalid entry")))
 }
 
 pub static PUZZLE_INPUT: &str = include_str!("../input");
@@ -87,14 +90,25 @@ mod tests {
                 println!("Setting to: {}", rust_log);
                 env::set_var("RUST_LOG", &rust_log);
                 Ok(rust_log)
-            }).unwrap();
+            })
+            .unwrap();
         let _ = env_logger::try_init();
     }
 
     #[test]
     fn parse() {
+        init_logger();
+
         unimplemented!();
-        let parsed: Vec<_> = parse_input("").collect();
-        assert_eq!(parsed, vec![]);
+
+        let parsed: Vec<DayXXEntry> = parse_input(PUZZLE_INPUT).collect();
+        assert_eq!(parsed.len(), 0);
+        assert_eq!(
+            &parsed[0..5],
+            &[
+                //
+                Day01Entry(0),
+            ]
+        );
     }
 }
