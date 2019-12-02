@@ -1,9 +1,6 @@
 //! # Day 01: The Tyranny of the Rocket Equation
 //!
-//! [Benchmarking report](../../../day01/target/criterion/report/index.html):
-//!
-//! * [Part 1](../../../day01/target/criterion/day01_part1/report/index.html)
-//! * [Part 2](../../../day01/target/criterion/day01_part2/report/index.html)
+//! [Benchmarking report](../../../day01/target/criterion/report/index.html)
 //!
 //! ## Part One
 //!

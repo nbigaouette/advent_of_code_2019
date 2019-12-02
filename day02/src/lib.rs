@@ -1,9 +1,6 @@
 //! # Day 02: 1202 Program Alarm
 //!
-//! [Benchmarking report](../../../day02/target/criterion/report/index.html):
-//!
-//! * [Part 1](../../../day02/target/criterion/day02_part1/report/index.html)
-//! * [Part 2](../../../day02/target/criterion/day02_part2/report/index.html)
+//! [Benchmarking report](../../../day02/target/criterion/report/index.html)
 //!
 //! ## Part One
 //!
