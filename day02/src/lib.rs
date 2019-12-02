@@ -16,18 +16,8 @@
 
 use std::fmt::Debug;
 
-// pub use anyhow::{Context, Result};
-// use shrinkwraprs::Shrinkwrap;
-
 pub mod initial;
 pub use crate::initial::Day02Initial;
-
-// pub enum OpCode {
-//     Add,      // 1
-//     Multiply, // 2
-//     Done, // 99
-//     Unknown,  // Something went wrong
-// }
 
 pub type OpCode = usize;
 
@@ -89,10 +79,7 @@ pub mod benchmark {
     >;
 
     pub fn to_benchmark<'a>() -> BenchmarkVector<'a> {
-        unimplemented!()
-        // vec![
-        //     Box::new(Day02Initial::new(PUZZLE_INPUT)),
-        // ]
+        vec![Box::new(Day02Initial::new(PUZZLE_INPUT))]
     }
 }
 
