@@ -6,8 +6,6 @@ edition = "2018"
 
 [dependencies]
 log = "0.4"
-# anyhow = "1.0"
-# shrinkwraprs = "0.2"
 
 [dev-dependencies]
 criterion = "0.3"

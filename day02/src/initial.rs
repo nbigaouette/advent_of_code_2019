@@ -2,42 +2,48 @@ use crate::*;
 
 #[derive(Debug)]
 pub struct Day02Initial {
+    initial_state: Vec<OpCode>,
     state: Vec<OpCode>,
-    address: usize,
+    instruction_ptr: usize,
 }
 
 impl Day02Initial {
     pub fn state(&self) -> &[OpCode] {
         &self.state
     }
-    fn addresses(&self) -> (usize, usize, usize) {
+
+    fn reset(&mut self) {
+        self.state = self.initial_state.clone();
+        self.instruction_ptr = 0;
+    }
+
+    fn pointers(&self) -> (usize, usize, usize) {
         (
-            self.state[self.address + 1],
-            self.state[self.address + 2],
-            self.state[self.address + 3],
+            self.state[self.instruction_ptr + 1],
+            self.state[self.instruction_ptr + 2],
+            self.state[self.instruction_ptr + 3],
         )
     }
+
     pub fn step(&mut self) {
-        let opcode = self.state[self.address];
+        let opcode = self.state[self.instruction_ptr];
         match opcode {
             OPCODE_ADD => {
-                log::info!("OpCode ADD");
-                let (address_left, address_right, address_result) = self.addresses();
+                let (address_left, address_right, address_result) = self.pointers();
                 self.state[address_result] = self.state[address_left] + self.state[address_right];
             }
             OPCODE_MUL => {
-                log::info!("OpCode MUL");
-                let (address_left, address_right, address_result) = self.addresses();
+                let (address_left, address_right, address_result) = self.pointers();
                 self.state[address_result] = self.state[address_left] * self.state[address_right];
             }
             OPCODE_DONE => log::info!("Done!"),
             _ => unreachable!(),
         }
-        self.address += OPCODE_JUMP;
+        self.instruction_ptr += OPCODE_JUMP;
     }
 
     pub fn run(&mut self) {
-        while self.state[self.address] != OPCODE_DONE {
+        while self.state[self.instruction_ptr] != OPCODE_DONE {
             self.step();
         }
     }
@@ -52,23 +58,50 @@ impl AoC<'_> for Day02Initial {
     }
 
     fn new(input: &str) -> Day02Initial {
+        let initial_state: Vec<usize> = parse_input(input).collect();
         Day02Initial {
-            state: parse_input(input).collect(),
-            address: 0,
+            state: initial_state.clone(),
+            initial_state,
+            instruction_ptr: 0,
         }
     }
 
     fn solution_part1(&mut self) -> Self::SolutionPart1 {
-        self.state[1] = 12;
-        self.state[2] = 2;
+        self.state[IDX_NOUN] = 12;
+        self.state[IDX_VERB] = 2;
 
         self.run();
 
-        self.state[0]
+        self.state[IDX_OUTPUT]
     }
 
-    // fn solution_part2(&mut self) -> Self::SolutionPart2 {
-    // }
+    fn solution_part2(&mut self) -> Self::SolutionPart2 {
+        let mut found = false;
+        'outer: for noun in 0..=99 {
+            for verb in 0..=99 {
+                // Reset computer to initial state
+                self.reset();
+
+                self.state[IDX_NOUN] = noun;
+                self.state[IDX_VERB] = verb;
+
+                self.run();
+
+                if self.state[IDX_OUTPUT] == PART2_EXPECTED_VALUE {
+                    log::info!("Found output {}", self.state[IDX_OUTPUT]);
+                    found = true;
+                    break 'outer;
+                }
+            }
+        }
+
+        assert!(found);
+
+        let noun = self.state[IDX_NOUN];
+        let verb = self.state[IDX_VERB];
+
+        100 * noun + verb
+    }
 }
 
 #[cfg(test)]
@@ -195,38 +228,11 @@ mod tests {
             fn solution() {
                 init_logger();
 
-                unimplemented!();
-
-                let expected = 0;
+                let expected = 5741;
                 let to_check = Day02Initial::new(PUZZLE_INPUT).solution_part2();
 
                 assert_eq!(to_check, expected);
             }
         }
-
-        mod given {
-            use super::super::super::Day02Initial;
-            use crate::{tests::init_logger, AoC};
-
-            #[test]
-            fn ex01() {
-                init_logger();
-
-                unimplemented!();
-
-                let expected = 0;
-                let input = "";
-                let to_check = Day02Initial::new(input).solution_part2();
-
-                assert_eq!(to_check, expected);
-            }
-        }
-
-        /*
-        mod extra {
-            use super::super::super::Day02Initial;
-            use crate::{tests::init_logger, AoC, PUZZLE_INPUT};
-        }
-        */
     }
 }

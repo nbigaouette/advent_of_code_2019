@@ -37,6 +37,11 @@ pub const OPCODE_DONE: usize = 99;
 // Anything else is 'unknown'
 pub const OPCODE_JUMP: usize = 4;
 
+pub const IDX_OUTPUT: usize = 0;
+pub const IDX_NOUN: usize = 1;
+pub const IDX_VERB: usize = 2;
+pub const PART2_EXPECTED_VALUE: usize = 19_690_720;
+
 // #[derive(Debug, Shrinkwrap, PartialEq)]
 // pub struct Day02Entry(usize);
 
