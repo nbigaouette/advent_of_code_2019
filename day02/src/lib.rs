@@ -65,7 +65,7 @@
 //!
 //! ```text
 //! 3500,9,10,70, 2,3,11,0, 99, 30,40,50
-//! ```text
+//! ```
 //!
 //! Stepping forward `4` more positions arrives at opcode `99`, halting the program.
 //!
