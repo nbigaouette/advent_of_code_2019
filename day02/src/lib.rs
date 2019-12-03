@@ -170,7 +170,7 @@ pub fn parse_input<'a>(input: &'a str) -> impl Iterator<Item = OpCode> + 'a {
     input
         .trim()
         .split(',')
-        .map(|opcode| opcode.parse::<OpCode>().unwrap())
+        .filter_map(|opcode| opcode.parse::<OpCode>().ok())
 }
 
 pub static PUZZLE_INPUT: &str = include_str!("../input");
