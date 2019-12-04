@@ -1,5 +1,7 @@
 //! # Day 02: 1202 Program Alarm
 //!
+//! [GitHub source](https://github.com/nbigaouette/advent_of_code_2019/tree/master/day02)
+//!
 //! [Benchmarking report](../../../day02/target/criterion/report/index.html)
 //!
 //! ## Part One

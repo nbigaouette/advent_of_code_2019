@@ -1,5 +1,7 @@
 //! # Day 01: The Tyranny of the Rocket Equation
 //!
+//! [GitHub source](https://github.com/nbigaouette/advent_of_code_2019/tree/master/day01)
+//!
 //! [Benchmarking report](../../../day01/target/criterion/report/index.html)
 //!
 //! ## Part One

@@ -1,5 +1,7 @@
 //! # Day XX:
 //!
+//! [GitHub source](https://github.com/nbigaouette/advent_of_code_2019/tree/master/dayXX)
+//!
 //! [Benchmarking report](../../../dayXX/target/criterion/report/index.html)
 //!
 //! ## Part One
