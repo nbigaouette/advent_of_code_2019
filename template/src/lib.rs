@@ -79,7 +79,7 @@ mod tests {
     use env_logger;
     use std::env;
 
-    use crate::parse_input;
+    use crate::*;
 
     pub fn init_logger() {
         env::var("RUST_LOG")
