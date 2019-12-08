@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["parse_input_part1",""],["parse_input_part2",""]],"mod":[["benchmark",""],["initial",""],["path_diff",""]],"static":[["PUZZLE_INPUT",""]],"struct":[["Day06InverseMap",""],["Day06Map",""],["Orbiter",""],["Orbiting",""]],"trait":[["AoC",""],["Context","Provides the `context` method for `Result`."]],"type":[["Result","`Result<T, Error>`"]]});
