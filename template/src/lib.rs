@@ -76,10 +76,12 @@ pub mod benchmark {
 
 #[cfg(test)]
 mod tests {
-    use env_logger;
     use std::env;
 
-    use crate::*;
+    use env_logger;
+    use pretty_assertions::assert_eq;
+
+    use super::*;
 
     pub fn init_logger() {
         env::var("RUST_LOG")

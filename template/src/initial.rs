@@ -28,7 +28,7 @@ impl<'a> AoC<'a> for DayXXInitial<'a> {
 mod tests {
     mod part1 {
         mod solution {
-            use super::super::super::DayXXInitial;
+            use super::super::super::*;
             use crate::{tests::init_logger, AoC, PUZZLE_INPUT};
 
             #[test]
@@ -72,7 +72,7 @@ mod tests {
 
     mod part2 {
         mod solution {
-            use super::super::super::DayXXInitial;
+            use super::super::super::*;
             use crate::{tests::init_logger, AoC, PUZZLE_INPUT};
 
             #[test]
